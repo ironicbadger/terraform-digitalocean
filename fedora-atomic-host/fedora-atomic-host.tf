@@ -17,6 +17,9 @@ resource "digitalocean_droplet" "fedora-atomic" {
     tags = [
         "${digitalocean_tag.TEST.name}"
     ]
+    connection {
+        private_key = "${file("/Users/alex/.ssh/id_rsa")}"
+    }
     provisioner "remote-exec" {
         script = "scripts/update_atomic.sh"
     }

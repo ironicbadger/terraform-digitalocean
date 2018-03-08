@@ -17,6 +17,10 @@ resource "digitalocean_droplet" "fedora-27" {
     tags = [
         "${digitalocean_tag.TEST.name}"
     ]
+    # required on MacOS as SSH agent is not respected! :(
+    connection {
+        private_key = "${file("/Users/alex/.ssh/id_rsa")}"
+    }
     provisioner "remote-exec" {
         script = "scripts/update.sh"
     }
